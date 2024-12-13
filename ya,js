@@ -1,0 +1,22 @@
+let aaa = []
+let bbb = []
+const originalSrc = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'src');
+Object.defineProperty(HTMLMediaElement.prototype, 'src', {
+  set: function(value) {
+	if (value){
+		bbb = []
+		bbb.push(document.getElementsByClassName('track__artists')[0].querySelector('a').title + ' - ' + document.getElementsByClassName('track__name')[0].querySelector('a').title)
+        bbb.push(value)
+		console.log('load ' + value)
+        aaa.push(bbb)
+		// downloadMedia(value);
+        console.log(aaa)
+	}
+    return originalSrc.set.call(this, value);
+  },
+  get: originalSrc.get
+});
+
+setInterval(() => {
+  document.getElementsByClassName('d-icon_track-next')[0].click();
+}, 1000);
